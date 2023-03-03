@@ -1,0 +1,6 @@
+/.my_pgpass
+/.pg_service.conf
+/db.sqlite3
+/pgpass.conf
+/venv/
+/.idea/
