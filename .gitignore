@@ -4,3 +4,4 @@
 /pgpass.conf
 /venv/
 /.idea/
+*.pyc
