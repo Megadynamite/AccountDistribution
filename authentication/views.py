@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 
 # Create your views here.
-from authentication.models import Token
+from authentication.models import Token, wrap_token_auth
 
 
 def revoke(request, token=None):
@@ -15,3 +15,11 @@ def revoke(request, token=None):
         except Token.DoesNotExist:
             pass
     return HttpResponse(status=200)
+
+
+def testauth(request):
+    if not request.user.is_authenticated:
+        token = wrap_token_auth(request)
+        if token is None:
+            return HttpResponse("Unauthorized", status=401)
+    return HttpResponse('authenticated', status=200)
