@@ -2,15 +2,13 @@ import json
 import uuid
 from datetime import timedelta
 
-from django.contrib.auth import authenticate, login
-from django.db import connection
-from django.http import HttpResponse, Http404, HttpResponseForbidden, JsonResponse
-from django.shortcuts import render
-from django.core import serializers
+
+from django.db import connection, IntegrityError
+from django.http import HttpResponse, JsonResponse
 
 # Create your views here.
 from authentication.models import wrap_token_auth, Token
-from checkout.models import Account, AccountUsage
+from checkout.models import Account, AccountUsage, AccountToken
 from utils import dictfetchall
 
 
