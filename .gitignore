@@ -5,3 +5,4 @@
 /venv/
 /.idea/
 *.pyc
+/Accounts/dev_settings.py
