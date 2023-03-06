@@ -5,5 +5,6 @@ from . import views
 app_name = 'accounts'
 urlpatterns = [
     path('checkout/<str:account_type>/', views.checkout, name='checkout'),
-    path('checkin/', views.checkin, name='checkout')
+    path('checkin/', views.checkin, name='checkout'),
+    path('create/', views.create)
 ]

@@ -62,4 +62,27 @@ def checkin(request):
                 account_usage['lockout_interval'] = request.headers['lock_duration']
             account_usage.save()
     except (AccountUsage.DoesNotExist, ValueError):
-        return HttpResponse("Bad Request", 400)
+        return HttpResponse("Bad Request", status=400)
+
+
+def create(request):
+    if not request.user.is_authenticated:
+        token = wrap_token_auth(request)
+        if token is None:
+            return HttpResponse("Unauthorized", status=401)
+    identifier = request.headers.get('identifier', None)
+    username = request.headers.get('username', None)
+    email = request.headers.get('email', None)
+    password = request.headers.get('password', None)
+    token = request.headers.get('token', None)
+    account_type = request.headers.get('account_type', None)
+
+    new_account = Account(identifier=identifier, username=username, email=email, password=password,
+                          account_type=account_type)
+    new_token = AccountToken(account=new_account, content=token)
+    try:
+        new_account.save()
+        new_token.save()
+        return HttpResponse(status=200)
+    except IntegrityError:
+        return HttpResponse("Bad Request", status=400)
