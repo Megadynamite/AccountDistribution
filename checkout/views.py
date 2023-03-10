@@ -7,6 +7,9 @@ from django.db import connection, IntegrityError
 from django.http import HttpResponse, JsonResponse
 
 # Create your views here.
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+
 from authentication.models import wrap_token_auth, Token
 from checkout.models import Account, AccountUsage, AccountToken
 from utils import dictfetchall
@@ -63,17 +66,18 @@ def checkin(request):
         return HttpResponse("Bad Request", status=400)
 
 
+@csrf_exempt
 def create(request):
     if not request.user.is_authenticated:
         token = wrap_token_auth(request)
         if token is None:
             return HttpResponse("Unauthorized", status=401)
-    identifier = request.headers.get('identifier', None)
-    username = request.headers.get('username', None)
-    email = request.headers.get('email', None)
-    password = request.headers.get('password', None)
-    token = request.headers.get('token', None)
-    account_type = request.headers.get('account_type', None)
+    identifier = request.POST.get('identifier', None)
+    username = request.POST.get('username', None)
+    email = request.POST.get('email', None)
+    password = request.POST.get('password', None)
+    token = request.POST.get('token', None)
+    account_type = request.POST.get('account_type', None)
 
     new_account = Account(identifier=identifier, username=username, email=email, password=password,
                           account_type=account_type)
