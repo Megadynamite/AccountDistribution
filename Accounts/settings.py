@@ -79,7 +79,7 @@ DATABASES = {
         'NAME': 'djangodb',
         'OPTIONS': {
             'service': 'djangodb',
-            'passfile': '.my_pgpass',
+            'passfile': 'pgpass.conf',
         },
     }
 }
