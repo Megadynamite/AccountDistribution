@@ -15,6 +15,7 @@ from checkout.models import Account, AccountUsage, AccountToken
 from utils import dictfetchall
 
 
+@require_http_methods(["GET"])
 def checkout(request, account_type):
     token = None
     if not request.user.is_authenticated:
@@ -48,6 +49,7 @@ def checkout(request, account_type):
     return JsonResponse(data, safe=False)
 
 
+@require_http_methods(["POST"])
 def checkin(request):
     if not request.user.is_authenticated:
         token = wrap_token_auth(request)
