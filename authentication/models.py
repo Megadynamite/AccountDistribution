@@ -6,7 +6,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.models import User
 from django.db import models
-# Create your models here.
+
 from django.utils import timezone
 
 from checkout.models import Account

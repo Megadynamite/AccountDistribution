@@ -2,7 +2,6 @@ import json
 import uuid
 from datetime import timedelta
 
-
 from django.db import connection, IntegrityError
 from django.http import HttpResponse, JsonResponse
 
