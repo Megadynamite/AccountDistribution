@@ -65,3 +65,4 @@ class AccountToken(models.Model):
     account = models.ForeignKey('Account', on_delete=models.CASCADE)
     content = models.CharField(max_length=100)
     timestamp = models.DateTimeField(default=timezone.now)
+    token_type = models.CharField(max_length=32)

@@ -77,11 +77,12 @@ def create(request):
     email = request.POST.get('email', None)
     password = request.POST.get('password', None)
     token = request.POST.get('token', None)
+    token_type = request.POST.get('type', None)
     account_type = request.POST.get('account_type', None)
-
+    creator = request.POST.get('creator', None)
     new_account = Account(identifier=identifier, username=username, email=email, password=password,
-                          account_type=account_type)
-    new_token = AccountToken(account=new_account, content=token)
+                          account_type=account_type, creator=creator)
+    new_token = AccountToken(account=new_account, content=token, token_type=token_type)
     try:
         new_account.save()
         new_token.save()
